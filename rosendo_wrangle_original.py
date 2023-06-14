@@ -294,14 +294,14 @@ _______________________________________""")
 
 
 # ----------------------------------------------------------------------------------
-def remove_columns(df, cols_to_remove):
+def remove_columns(df, col_to_remove):
     """
     This function will:
     - take in a df and list of columns (you need to create a list of columns that you would like to drop under the name 'cols_to_remove')
     - drop the listed columns
     - return the new df
     """
-    df = df.drop(columns=cols_to_remove)
+    df = df.drop(columns=col_to_remove)
     
     return df
 
@@ -329,7 +329,7 @@ def handle_missing_values(df, prop_required_columns=0.5, prop_required_rows=0.75
 
 
 # ----------------------------------------------------------------------------------
-def data_prep(df, col_to_remove=[], prop_required_columns=0.5, prop_required_rows=0.75):
+def data_prep(df, col_to_remove, prop_required_columns=0.5, prop_required_rows=0.75):
     """
     This function will:
     - take in: 
