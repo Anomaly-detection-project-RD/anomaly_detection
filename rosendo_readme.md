@@ -87,12 +87,12 @@ Explore
     • a single email from your team sent to `datascience@codeup.com` answering the questions 
     • a single google slide that can be added into a presentation (attach to email)
     • a new github repository with .py files, final_notebook.ipynb, & readme (include link in email)
-
+• 
 # Data Dictionary
 
 | Feature    | Definition                                                                                       |
 |------------|--------------------------------------------------------------------------------------------------|
-| index      | Unique identifier for each row                                                                   |
+| unnamed: 0 | Unique identifier for each row                                                                   |
 | date       | Date when a particular event or record occurred                                                  |
 | time       | Time when a particular event or record occurred                                                  |
 | path       | Portion of the URL path for the Codeup website                                                   |
@@ -104,8 +104,7 @@ Explore
 | end_date   | End date of a particular event, such as the end of a user's membership or a cohort's program     |
 | created_at | The date and time when the record was created                                                    |
 | updated_at | The date and time when the record was last updated                                               |
-| program_id | A unique identifier for the program that the user is enrolled in. 1 = Full-Stack Web Dev - PHP,  |
-|            | 2 = Full-Stack Web Dev - Java, 3 = Data Science, and 4 = front-End Web Dev                       |
+| program_id | A unique identifier for the program that the user is enrolled in. 1 = Full-Stack Web Dev - PHP,  | |            | 2 = Full-Stack Web Dev - Java, 3 = Data Science, and 4 = front-End Web Dev                       |
 
 
 # Steps to Reproduce
@@ -114,6 +113,26 @@ Use personal env.py to connect
 Run notebook
 Use final_report for findings
 
+
+# REPO REPLICATION
+In order to get started reproducing this project, you'll need to set up a proper environment.
+
+a. use the query provided in side the final_project.ipynb to obtain the dataset from MySQL. 
+
+b. use personal env.py to connect to MySQL. 
+
+If you downloaded the file you may need to unzip the downloaded file to recover the american_bankruptcy.csv file.
+Prep your repo:
+• Create a new repository on GitHub to house this project.
+
+• Clone it into your local machine by copying the SSH link from GitHub and running 'git clone <SSH link'> in your terminal.
+
+Create a .gitignore file in your local repository and include any files you don't want to be tracked by Git or shared on the internet. This can include your newly downloaded .csv files. You can create and edit this file by running 'code .gitignore' in your terminal (if you're using Visual Studio Code as your text editor) if you open it from the terminal run 'open .gitignore'.
+Create a README.md file to begin noting the steps taken so far. You can create and edit this file by running code README.md in your terminal.
+Transfer your 'american_bankruptcy.csv' file into your newly established local repository.
+Create a Jupyter Lab environment to continue working in. You can do this by running 'jupyter lab' in your terminal.
+In Jupyter Lab, create a new Jupyter Notebook to begin the data pipeline.
+Remember to regularly commit and push your changes to GitHub to ensure your work is saved and accessible from the remote repository.
 
 
 # Takeaways and Conclusions
@@ -125,15 +144,6 @@ Use final_report for findings
 Create wines that optimize the chemical properties as described above
 i.e. the higher/lower values that correspond with higher quality scores
 This will not guarantee a higher quality wine, but it should increase the probability of creating a higher quality wine
-
-
-
-
-
-
-
-
-
 
 
 
