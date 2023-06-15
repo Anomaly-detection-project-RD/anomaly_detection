@@ -242,114 +242,61 @@ def question_two(df):
 
 
 def question_three(df):
+
     program_1 = df[df.program_id == 'full_stack_java_php']
     program_2 = df[df.program_id == 'full_stack_java_java']
     program_3 = df[df.program_id == 'datascience']
     program_4 = df[df.program_id == 'front_end_web_dev']
 
+    program_names = ['full_stack_java_php','full_stack_java_java','datascience','front_end_web_dev']
 
     the_list = [program_1, program_2, program_3, program_4]
 
+    for iteration , j in enumerate(the_list):
+        
+        if program_names[iteration] == 'full_stack_java_php':
+            df_1 = j.groupby(by='path').count()
+            df_1 = df_1.reset_index()
+            df_1 = df_1[df_1.path.str.len() > 1]
+            df_1 = df_1[df_1.path.str.contains('/')]
+            df_1 = df_1[df_1.path.str.contains('.json') == False]
+            df_1 = df_1[df_1.path != 'content/php_ii/command-line']
+            df_1 = df_1[df_1.path != 'content/php_i']
+            df_1 = df_1[df_1.path != 'html-css/elements']
+            df_1 = df_1.sort_values(by='user_id').head(1)
+            df_1['program'] = 'full_stack_java_php'
+        if program_names[iteration] == 'full_stack_java_php':
+            df_2 = j.groupby(by='path').count()
+            df_2 = df_2.reset_index()
+            df_2 = df_2[df_2.path.str.len() > 1]
+            df_2 = df_2[df_2.path.str.contains('/')]
+            df_2 = df_2[df_2.path.str.contains('.json') == False]
+            df_2 = df_2[df_2.path != 'content/php_ii/command-line']
+            df_2 = df_2[df_2.path != 'content/php_i']
+            df_2 = df_2[df_2.path != 'html-css/elements']
+            df_2 = df_2.sort_values(by='user_id').head(1)
+            df_2['program'] = 'full_stack_java_php'
+        if program_names[iteration] == 'datascience':
+            df_3 = j.groupby(by='path').count()
+            df_3 = df_3.reset_index()
+            df_3 = df_3[df_3.path.str.len() > 1]
+            df_3 = df_3[df_3.path.str.contains('/')]
+            df_3 = df_3[df_3.path.str.contains('.json') == False]
+            df_3 = df_3[df_3.path != 'content/php_ii/command-line']
+            df_3 = df_3[df_3.path != 'content/php_i']
+            df_3 = df_3[df_3.path != 'html-css/elements']
+            df_3 = df_3.sort_values(by='user_id').head(1)
+            df_3['program'] = 'datascience'
+        if program_names[iteration] == 'front_end_web_dev':
+            df_4 = j.groupby(by='path').count()
+            df_4 = df_4.reset_index()
+            df_4 = df_4[df_4.path.str.len() > 1]
+            df_4 = df_4[df_4.path.str.contains('/')]
+            df_4 = df_4[df_4.path.str.contains('.json') == False]
+            df_4 = df_4[df_4.path != 'content/php_ii/command-line']
+            df_4 = df_4[df_4.path != 'content/php_i']
+            df_4 = df_4[df_4.path != 'html-css/elements']
+            df_4 = df_4.sort_values(by='user_id').head(1)
+            df_4['program'] = 'front_end_web_dev'
 
-    list_of_least_viewed_full_stack_java_php = []
-    list_of_least_viewed_full_stack_java_java = []
-    list_of_least_viewed_datascience = []
-    list_of_least_viewed_front_end_web_dev = []
-    the_dict_of_answers = {}
-    list_to_be_added = []
-
-    for j in the_list:
-        for i in list(set(j.cohort_id)):
-            
-            answer = j.groupby(by=["cohort_id", 'path']).count()
-            answer = answer.reset_index()
-            answer.cohort_id.unique()
-
-            
-            if j.program_id.unique()[0] == 'full_stack_java_php':
-                answer = answer[answer.path.str.len() > 1]
-                answer = answer[answer.path.str.contains('/')]
-                answer = answer[answer.path.str.contains('.json') == False]
-                answer = answer[answer.path != 'content/php_ii/command-line']
-                answer = answer[answer.path != 'content/php_i']
-                answer = answer[answer.path != 'html-css/elements']
-
-                the_df = answer[['path', 'cohort_id', 'user_id']][answer.cohort_id == i].sort_values(by ='user_id').head(1)
-
-                if len(the_df.path.unique()) == 1:
-                    list_of_least_viewed_full_stack_java_php.append(the_df.path.iloc[0])
-
-
-            if j.program_id.unique()[0] == 'full_stack_java_java':
-                answer = answer[answer.path.str.len() > 1]
-                answer = answer[answer.path.str.contains('/')]
-                answer = answer[answer.path.str.contains('.json') == False]
-                answer = answer[answer.path != 'content/php_ii/command-line']
-                answer = answer[answer.path != 'content/php_i']
-                answer = answer[answer.path != 'html-css/elements']
-                
-                the_df = answer[['path', 'cohort_id', 'user_id']][answer.cohort_id == i].sort_values(by ='user_id').head(1)
-
-                if len(the_df.path.unique()) == 1:
-                    list_of_least_viewed_full_stack_java_java.append(the_df.path.iloc[0])
-
-            
-            if j.program_id.unique()[0] == 'datascience':
-                answer = answer[answer.path.str.len() > 1]
-                answer = answer[answer.path.str.contains('/')]
-                answer = answer[answer.path.str.contains('.json') == False]
-                answer = answer[answer.path != 'content/php_ii/command-line']
-                answer = answer[answer.path != 'content/php_i']
-                answer = answer[answer.path != 'html-css/elements']
-                
-
-                the_df = answer[['path', 'cohort_id', 'user_id']][answer.cohort_id == i].sort_values(by ='user_id').head(1)
-
-                if len(the_df.path.unique()) == 1:
-                    list_of_least_viewed_datascience.append(the_df.path.iloc[0])
-
-
-            if j.program_id.unique()[0] == 'front_end_web_dev':
-                answer = answer[answer.path.str.len() > 1]
-                answer = answer[answer.path.str.contains('/')]
-                answer = answer[answer.path.str.contains('.json') == False]
-                answer = answer[answer.path != 'content/php_ii/command-line']
-                answer = answer[answer.path != 'content/php_i']
-                answer = answer[answer.path != 'html-css/elements']
-                
-                the_df = answer[['path', 'cohort_id', 'user_id']][answer.cohort_id == i].sort_values(by ='user_id').head(1)
-
-                if len(the_df.path.unique()) == 1:
-                    list_of_least_viewed_front_end_web_dev.append(the_df.path.iloc[0])
-    
-
-    the_dict = {}
-    top_df = pd.DataFrame()
-    program_names = ['full_stack_java_php','full_stack_java_java','datascience','front_end_web_dev']
-    for iteration, list_of_least_viewed in enumerate([list_of_least_viewed_full_stack_java_php,
-                                list_of_least_viewed_full_stack_java_java,
-                                list_of_least_viewed_datascience,
-                                list_of_least_viewed_front_end_web_dev
-                                ]):
-        for i in list_of_least_viewed:
-            if i in the_dict:
-                the_dict[i] += 1
-            else:
-                the_dict[i] = 1
-
-
-
-
-        for key, values in the_dict.items():
-            if the_dict[key] == max(the_dict.values()):
-                list_to_be_added.append(key)
-
-        the_dict_of_answers[program_names[iteration]] = list_to_be_added
-        list_to_be_added = []
-
-        the_dict = {}
-    for key, values in the_dict_of_answers.items():
-        the_df = pd.DataFrame({'program': str(key), "page":str(values)},  index=[0])
-        top_df = pd.concat([top_df, the_df])
-
-    return top_df
+    return pd.concat([df_1, df_2, df_3, df_4])[['path','program','user_id']].rename(columns ={'user_id':'count'})
