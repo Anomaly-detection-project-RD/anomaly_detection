@@ -46,6 +46,8 @@ def get_data():
 
 
 def question_one(df):
+    
+
     program_1 = df[df.program_id == 'full_stack_java_php']
     program_2 = df[df.program_id == 'full_stack_java_java']
     program_3 = df[df.program_id == 'datascience']
@@ -125,7 +127,7 @@ def question_one(df):
     program_names = ['full_stack_java_php','full_stack_java_java','datascience','front_end_web_dev']
     the_dict_of_answers = {}
     list_to_be_added = []
-
+    top_df= pd.DataFrame()
     for iteration, list_of_most_viewed in enumerate([list_of_most_viewed_full_stack_java_php,
                                 list_of_most_viewed_full_stack_java_java,
                                 list_of_most_viewed_datascience,
@@ -137,20 +139,22 @@ def question_one(df):
             else:
                 the_dict[i] = 1
 
-
-
-
         for key, values in the_dict.items():
             if the_dict[key] == max(the_dict.values()):
                 list_to_be_added.append(key)
 
         the_dict_of_answers[program_names[iteration]] = list_to_be_added
+        
         list_to_be_added = []
 
         the_dict = {}
     for key, values in the_dict_of_answers.items():
-        print(key ,values)
-        print()
+        the_df = pd.DataFrame({'program': str(key), "page":str(values)},  index=[0])
+        
+        top_df = pd.concat([top_df, the_df])
+
+    return top_df
+
 
 
 def question_two(df):
@@ -221,14 +225,20 @@ def question_two(df):
                     top_df_datascience = pd.concat([top_df_datascience, the_df[the_df.path == 'classification/overview']]).sort_values(by='user_id', ascending= False)
 
 
-    print('stack_java_php')
-    print(top_df_full_stack_java_php.head()) 
-    print()
-    print('full_stack_java_java')
-    print(top_df_full_stack_java_java.head()) 
-    print()
-    print('datascience')
-    print(top_df_datascience.head()) 
+    top_df_full_stack_java_php['cohort'] = 'Lassen'
+    top_df_full_stack_java_php['program'] = 'full_stack_java_php'
+
+    top_df_full_stack_java_java['cohort'] = 'Staff'
+    top_df_full_stack_java_java['program'] = 'full_stack_java_java'
+
+    top_df_datascience['cohort'] = 'Darden'
+    top_df_datascience['program'] = 'datascience'
+
+    df_1 = top_df_full_stack_java_php
+    df_2 = top_df_full_stack_java_java
+    df_3 = top_df_datascience
+
+    return pd.concat([df_1.head(1),df_2.head(1),df_3.head(1),])
 
 
 def question_three(df):
@@ -314,7 +324,7 @@ def question_three(df):
     
 
     the_dict = {}
-
+    top_df = pd.DataFrame()
     program_names = ['full_stack_java_php','full_stack_java_java','datascience','front_end_web_dev']
     for iteration, list_of_least_viewed in enumerate([list_of_least_viewed_full_stack_java_php,
                                 list_of_least_viewed_full_stack_java_java,
@@ -339,5 +349,7 @@ def question_three(df):
 
         the_dict = {}
     for key, values in the_dict_of_answers.items():
-        print(key ,values)
-        print()
+        the_df = pd.DataFrame({'program': str(key), "page":str(values)},  index=[0])
+        top_df = pd.concat([top_df, the_df])
+
+    return top_df
