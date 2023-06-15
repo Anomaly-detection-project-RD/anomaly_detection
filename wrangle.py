@@ -241,8 +241,12 @@ def question_three(df):
     the_list = [program_1, program_2, program_3, program_4]
 
 
-    list_of_least_viewed = []
-
+    list_of_least_viewed_full_stack_java_php = []
+    list_of_least_viewed_full_stack_java_java = []
+    list_of_least_viewed_datascience = []
+    list_of_least_viewed_front_end_web_dev = []
+    the_dict_of_answers = {}
+    list_to_be_added = []
 
     for j in the_list:
         for i in list(set(j.cohort_id)):
@@ -259,10 +263,81 @@ def question_three(df):
                 answer = answer[answer.path != 'content/php_ii/command-line']
                 answer = answer[answer.path != 'content/php_i']
                 answer = answer[answer.path != 'html-css/elements']
+
+                the_df = answer[['path', 'cohort_id', 'user_id']][answer.cohort_id == i].sort_values(by ='user_id').head(1)
+
+                if len(the_df.path.unique()) == 1:
+                    list_of_least_viewed_full_stack_java_php.append(the_df.path.iloc[0])
+
+
+            if j.program_id.unique()[0] == 'full_stack_java_java':
+                answer = answer[answer.path.str.len() > 1]
+                answer = answer[answer.path.str.contains('/')]
+                answer = answer[answer.path.str.contains('.json') == False]
+                answer = answer[answer.path != 'content/php_ii/command-line']
+                answer = answer[answer.path != 'content/php_i']
+                answer = answer[answer.path != 'html-css/elements']
+                
+                the_df = answer[['path', 'cohort_id', 'user_id']][answer.cohort_id == i].sort_values(by ='user_id').head(1)
+
+                if len(the_df.path.unique()) == 1:
+                    list_of_least_viewed_full_stack_java_java.append(the_df.path.iloc[0])
+
+            
+            if j.program_id.unique()[0] == 'datascience':
+                answer = answer[answer.path.str.len() > 1]
+                answer = answer[answer.path.str.contains('/')]
+                answer = answer[answer.path.str.contains('.json') == False]
+                answer = answer[answer.path != 'content/php_ii/command-line']
+                answer = answer[answer.path != 'content/php_i']
+                answer = answer[answer.path != 'html-css/elements']
                 
 
                 the_df = answer[['path', 'cohort_id', 'user_id']][answer.cohort_id == i].sort_values(by ='user_id').head(1)
 
                 if len(the_df.path.unique()) == 1:
+                    list_of_least_viewed_datascience.append(the_df.path.iloc[0])
 
-                    list_of_least_viewed.append(the_df.path.iloc[0])
+
+            if j.program_id.unique()[0] == 'front_end_web_dev':
+                answer = answer[answer.path.str.len() > 1]
+                answer = answer[answer.path.str.contains('/')]
+                answer = answer[answer.path.str.contains('.json') == False]
+                answer = answer[answer.path != 'content/php_ii/command-line']
+                answer = answer[answer.path != 'content/php_i']
+                answer = answer[answer.path != 'html-css/elements']
+                
+                the_df = answer[['path', 'cohort_id', 'user_id']][answer.cohort_id == i].sort_values(by ='user_id').head(1)
+
+                if len(the_df.path.unique()) == 1:
+                    list_of_least_viewed_front_end_web_dev.append(the_df.path.iloc[0])
+    
+
+    the_dict = {}
+
+    program_names = ['full_stack_java_php','full_stack_java_java','datascience','front_end_web_dev']
+    for iteration, list_of_least_viewed in enumerate([list_of_least_viewed_full_stack_java_php,
+                                list_of_least_viewed_full_stack_java_java,
+                                list_of_least_viewed_datascience,
+                                list_of_least_viewed_front_end_web_dev
+                                ]):
+        for i in list_of_least_viewed:
+            if i in the_dict:
+                the_dict[i] += 1
+            else:
+                the_dict[i] = 1
+
+
+
+
+        for key, values in the_dict.items():
+            if the_dict[key] == max(the_dict.values()):
+                list_to_be_added.append(key)
+
+        the_dict_of_answers[program_names[iteration]] = list_to_be_added
+        list_to_be_added = []
+
+        the_dict = {}
+    for key, values in the_dict_of_answers.items():
+        print(key ,values)
+        print()
