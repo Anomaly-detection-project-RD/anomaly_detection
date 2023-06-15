@@ -23,6 +23,31 @@ def check_file_exists(fn, query, url):
         df.to_csv(fn)
         return df
 
+    
+# ----------------------------------------------------------------------------------    
+def get_logs_data():
+    """
+    This function will:
+        - from the connection made to the `curriculum_logs` DB
+            - using the `get_db_url` from my wrangle module.
+    """
+    # How to import a database from MySQL
+    url = get_db_url('curriculum_logs')
+
+    query = 
+    """
+    SELECT * 
+    FROM curriculum_logs.logs as l
+    JOIN curriculum_logs.cohorts as c ON c.id = l.cohort_id
+    """
+
+    filename = 'logs.csv'
+    df = check_file_exists(filename, query, url)
+
+    df = pd.read_sql(query, url)
+    
+    return df    
+    
 # ----------------------------------------------------------------------------------    
 def get_grocery_data():
     """

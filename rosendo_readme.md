@@ -1,72 +1,112 @@
 # Project Description
-As a data science consultant Team BCR will find the drivers of wine quality for the California Wine Institute. We will find clusters within the data for exploration, understanding and modeling to present to the data science team for winery supply chain marketing. The project will culminate in a presentation to the data science team.
+This project involves analyzing user activity data from Codeup web logs to gain insights into user behavior and curriculum usage. The data includes information about the lessons accessed, the cohorts to which users belong, the times of access, and other related details. The analysis will focus on identifying patterns and anomalies in the data that can answer specific questions about user engagement, curriculum relevance, and potential security issues.
 
 # Project Goals
-Discover features/clusters helpful in predicting wine quality
+The goal of the project is to provide answers to at least 5 of the 7 questions below before the board meeting on Friday morning:
 
-Use features to develop a machine learning model to predict the quality of wine on a scale of 1-10
+1. Which lesson consistently attracts the most traffic across cohorts (per program)?
+2. Is there a cohort that referred to a lesson significantly more than other cohorts seemed to gloss over?
+3. Are there students who, when active, hardly access the curriculum? If so, what information do you have about these students?
+4. Is there any suspicious activity, such as users/machines/etc accessing the curriculum who shouldn’t be? Does it appear that any web-scraping is happening? Are there any suspicious IP addresses?
+5. At some point in 2019, the ability for students and alumni to access both curriculums (web dev to ds, ds to web dev) should have been shut off. Do you see any evidence of that happening? Did it happen before?
+6. What topics are grads continuing to reference after graduation and into their jobs (for each program)?
+7. Which lessons are least accessed?
+8. Any other important insights that weren't specifically asked for but are worth noting.
 
-Other key drivers:
+In addition to answering these questions, the project also involves creating a summary slide that can be incorporated into an existing presentation to highlight the most important points from the analysis.
 
-Is alcohol associated with quality?
-Is chlorides associated with quality?
-Is residual_sugar associated with quality?
-Is alcohol associated with density?
 
 # Initial Thoughts
-There are some key indicators in the data that may predict the 'quality' of wine and that those indicators will be evident by the conclusion of the project.
-The Plan
-Acquire: build organization repository named Team BCR and invite members. Pull winequality-red.csv and winequality-white.csv from data.world into repository. Build .gitignore and env.py files.
+The dataset provides a comprehensive log of user activity on an online learning platform, including details such as date, time, user ID, cohort ID, accessed path, and IP address. This information can be leveraged to track user engagement, identify popular or less accessed lessons, and observe patterns at the cohort or program level. However, the presence of missing values, particularly in the 'path' column, necessitates careful data cleaning and preparation. The dataset also offers opportunities for feature engineering, such as combining 'date' and 'time' for a more granular time series analysis. Furthermore, the data may contain potential anomalies or suspicious activities that warrant further investigation. Overall, the dataset presents a rich resource for deriving insights into user behavior and curriculum usage, albeit requiring thoughtful preprocessing and analysis.
+
+
+
+# The Plan
+
+Acquire
+    
+    build organization repository named Team BCR and invite members.
+    acquired the dataset from MySql Server by creating a query that 
+    joins the curriculum logs and cohorts on cohort_id.
+    build env.py file to acquire the dataset from MySql server and a .gitignore to avoid sharing personal information
+    use python environment of choice (recommend jupyter lab) and created a CSV
+    original dataset contained 847,330 rows and 15 columns
+Prepare
+   
+    BEFORE PREPARATION:
+    
+   
+    AFTER PREPARATION:
+    The following columns were dropped id, slack, deleted_at
+    The 'path' column has 1 null value. the null was eventually dropped using drop.na
+    The 'unnamed: 0' column has the most unique values (847330), which suggests that it might be an index column.
+    The 'user_id' column has 911 unique values, which suggests that there are 911 unique users in the dataset.
+    The 'cohort_id' and 'name' columns each have 47 unique values, which suggests that there are 47 unique cohorts in the dataset.
+    The 'ip' column has 5200 unique values, which suggests that there are 5200 unique IP addresses in the dataset.
+    after preparation dataset contained 
+
+Explore
+
+    Questions
+
 
 # Prepare the data using the following columns:
 
-> target: 12 - quality (score between 0 and 10)
 - features:
-- 1 - fixed acidity
-- 2 - volatile acidity
-- 3 - citric acid
-- 4 - residual sugar
-- 5 - chlorides
-- 6 - free sulfur dioxide
-- 7 - total sulfur dioxide
-- 8 - density
-- 9 - pH
-- 10 - sulphates
-- 11 - alcohol
+- 1 - date
+- 2 - time
+- 3 - path
+- 4 - user_id
+- 5 - cohort_id
+- 6 - ip
+- 7 - name
+- 8 - slack
+- 9 - start_date
+- 10 - end_date
+- 11 - created_at
+- 12 - updated_at
+- 13 - deleted_at
+- 14 - program_id
 
-> Explore dataset for predictors of wine 'quality'
+> Explore dataset for to answer eight questions, build a one slide with a summary and send an email pertaning information. 
 
-> Answer the following questions:
+#  Answer the following questions:
 
-Is alcohol associated with quality?
-Is chlorides associated with quality?
-Is residual_sugar associated with quality?
-Is alcohol associated with density?
+1. Which lesson appears to attract the most traffic consistently across cohorts (per program)?
+2. Is there a cohort that referred to a lesson significantly more than other cohorts seemed to gloss over?
+3. Are there students who, when active, hardly access the curriculum? If so, what information do you have about these students?
+4. Is there any suspicious activity, such as users/machines/etc accessing the curriculum who shouldn’t be? Does it appear that any web-scraping is happening? Are there any suspicious IP addresses?
+5. At some point in 2019, the ability for students and alumni to access both curriculums (web dev to ds, ds to web dev) should have been shut off. Do you see any evidence of that happening? Did it happen before?
+6. What topics are grads continuing to reference after graduation and into their jobs (for each program)?
+7. Which lessons are least accessed?
+8. Anything else I should be aware of?
 
 
-# Develop a model
+# Deliverables
 
-Using the selected data features develop appropriate predictive models
-Evaluate the models in action using train and validate splits as well as scaled data
-Choose the most accurate model
-Consider several clusters to enhance the chosen model
-Evaluate the most accurate model using the final test data set
-# Draw conclusions
+    • a single email from your team sent to `datascience@codeup.com` answering the questions 
+    • a single google slide that can be added into a presentation (attach to email)
+    • a new github repository with .py files, final_notebook.ipynb, & readme (include link in email)
 
 # Data Dictionary
-Feature	Definition (measurement)
-Fixed Acidity	The fixed amount of tartaric acid. (g/L)
-Volatile Acidity	A wine's acetic acid; (High Volatility = High Vinegar-like smell). (g/L)
-Citric Acid	The amount of citric acid; (Raises acidity, Lowers shelf-life). (g/L)
-Residual Sugar	Leftover sugars after fermentation. (g/L)
-Chlorides	Increases sodium levels; (Affects color, clarity, flavor, aroma). (g/L)
-Free Sulfur Dioxide	Related to pH. Determines how much SO2 is available. (Increases shelf-life, decreases palatability). (mg/L)
-Total Sulfur Dioxide	Summation of free and bound SO2. (Limited to 350ppm: 0-150, low-processed, 150+ highly processed). (mg/L)
-Density	Between 1.08 and 1.09. (Insight into fermentation process of yeast growth). (g/L)
-pH	2.5: more acidic - 4.5: less acidic (range)
-Sulphates	Added to stop fermentation (Preservative) (g/L)
-Alcohol	Related to Residual Sugars. By-product of fermentation process (vol%)
-Quality	Score assigned between 0 and 10; 0=low, 10=best
+
+| Feature    | Definition                                                                                       |
+|------------|--------------------------------------------------------------------------------------------------|
+| unnamed: 0 | Unique identifier for each row                                                                   |
+| date       | Date when a particular event or record occurred                                                  |
+| time       | Time when a particular event or record occurred                                                  |
+| path       | Portion of the URL path for the Codeup website                                                   |
+| user_id    | Unique identifier for each user                                                                  |
+| cohort_id  | Unique identifier for each cohort (group of users)                                               |
+| ip         | IP address of the user or the server that generated the record                                   |
+| name       | Name of cohort                                                                                   |
+| start_date | Start date of a particular event, such as the start of a user's membership or a cohort's program |
+| end_date   | End date of a particular event, such as the end of a user's membership or a cohort's program     |
+| created_at | The date and time when the record was created                                                    |
+| updated_at | The date and time when the record was last updated                                               |
+| program_id | A unique identifier for the program that the user is enrolled in. 1 = Full-Stack Web Dev - PHP,  |
+|            | 2 = Full-Stack Web Dev - Java, 3 = Data Science, and 4 = front-End Web Dev                       |
+
 
 # Steps to Reproduce
 Clone the repo git@github.com:Team-BCR/project3_wine.git in terminal
@@ -87,8 +127,6 @@ i.e. the higher/lower values that correspond with higher quality scores
 This will not guarantee a higher quality wine, but it should increase the probability of creating a higher quality wine
 
 # Citation
-P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis. Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553. ISSN: 0167-9236.
-
 
 1. Which lesson appears to attract the most traffic consistently across cohorts (per program)?
 - Skip this question for right now as we don't have enough information to verify. 
